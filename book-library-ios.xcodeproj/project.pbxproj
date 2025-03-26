@@ -24,9 +24,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9B4B011B2D94685D0048BFC3 /* book-library-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "book-library-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9B4B012E2D94685F0048BFC3 /* book-library-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "book-library-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9B4B01382D94685F0048BFC3 /* book-library-iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "book-library-iosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B4B011B2D94685D0048BFC3 /* BookLibrary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookLibrary.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B4B012E2D94685F0048BFC3 /* BookLibraryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BookLibraryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B4B01382D94685F0048BFC3 /* BookLibraryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BookLibraryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -35,14 +35,14 @@
 			path = "book-library-ios";
 			sourceTree = "<group>";
 		};
-		9B4B01312D94685F0048BFC3 /* book-library-iosTests */ = {
+		9B4B01312D94685F0048BFC3 /* BookLibraryTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "book-library-iosTests";
+			path = BookLibraryTests;
 			sourceTree = "<group>";
 		};
-		9B4B013B2D94685F0048BFC3 /* book-library-iosUITests */ = {
+		9B4B013B2D94685F0048BFC3 /* BookLibraryUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "book-library-iosUITests";
+			path = BookLibraryUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -76,8 +76,8 @@
 			isa = PBXGroup;
 			children = (
 				9B4B011D2D94685D0048BFC3 /* book-library-ios */,
-				9B4B01312D94685F0048BFC3 /* book-library-iosTests */,
-				9B4B013B2D94685F0048BFC3 /* book-library-iosUITests */,
+				9B4B01312D94685F0048BFC3 /* BookLibraryTests */,
+				9B4B013B2D94685F0048BFC3 /* BookLibraryUITests */,
 				9B4B011C2D94685D0048BFC3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -85,9 +85,9 @@
 		9B4B011C2D94685D0048BFC3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9B4B011B2D94685D0048BFC3 /* book-library-ios.app */,
-				9B4B012E2D94685F0048BFC3 /* book-library-iosTests.xctest */,
-				9B4B01382D94685F0048BFC3 /* book-library-iosUITests.xctest */,
+				9B4B011B2D94685D0048BFC3 /* BookLibrary.app */,
+				9B4B012E2D94685F0048BFC3 /* BookLibraryTests.xctest */,
+				9B4B01382D94685F0048BFC3 /* BookLibraryUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,9 +95,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9B4B011A2D94685D0048BFC3 /* book-library-ios */ = {
+		9B4B011A2D94685D0048BFC3 /* BookLibrary */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9B4B01422D94685F0048BFC3 /* Build configuration list for PBXNativeTarget "book-library-ios" */;
+			buildConfigurationList = 9B4B01422D94685F0048BFC3 /* Build configuration list for PBXNativeTarget "BookLibrary" */;
 			buildPhases = (
 				9B4B01172D94685D0048BFC3 /* Sources */,
 				9B4B01182D94685D0048BFC3 /* Frameworks */,
@@ -110,16 +110,16 @@
 			fileSystemSynchronizedGroups = (
 				9B4B011D2D94685D0048BFC3 /* book-library-ios */,
 			);
-			name = "book-library-ios";
+			name = BookLibrary;
 			packageProductDependencies = (
 			);
 			productName = "book-library-ios";
-			productReference = 9B4B011B2D94685D0048BFC3 /* book-library-ios.app */;
+			productReference = 9B4B011B2D94685D0048BFC3 /* BookLibrary.app */;
 			productType = "com.apple.product-type.application";
 		};
-		9B4B012D2D94685F0048BFC3 /* book-library-iosTests */ = {
+		9B4B012D2D94685F0048BFC3 /* BookLibraryTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9B4B01452D94685F0048BFC3 /* Build configuration list for PBXNativeTarget "book-library-iosTests" */;
+			buildConfigurationList = 9B4B01452D94685F0048BFC3 /* Build configuration list for PBXNativeTarget "BookLibraryTests" */;
 			buildPhases = (
 				9B4B012A2D94685F0048BFC3 /* Sources */,
 				9B4B012B2D94685F0048BFC3 /* Frameworks */,
@@ -131,18 +131,18 @@
 				9B4B01302D94685F0048BFC3 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				9B4B01312D94685F0048BFC3 /* book-library-iosTests */,
+				9B4B01312D94685F0048BFC3 /* BookLibraryTests */,
 			);
-			name = "book-library-iosTests";
+			name = BookLibraryTests;
 			packageProductDependencies = (
 			);
 			productName = "book-library-iosTests";
-			productReference = 9B4B012E2D94685F0048BFC3 /* book-library-iosTests.xctest */;
+			productReference = 9B4B012E2D94685F0048BFC3 /* BookLibraryTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		9B4B01372D94685F0048BFC3 /* book-library-iosUITests */ = {
+		9B4B01372D94685F0048BFC3 /* BookLibraryUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9B4B01482D94685F0048BFC3 /* Build configuration list for PBXNativeTarget "book-library-iosUITests" */;
+			buildConfigurationList = 9B4B01482D94685F0048BFC3 /* Build configuration list for PBXNativeTarget "BookLibraryUITests" */;
 			buildPhases = (
 				9B4B01342D94685F0048BFC3 /* Sources */,
 				9B4B01352D94685F0048BFC3 /* Frameworks */,
@@ -154,13 +154,13 @@
 				9B4B013A2D94685F0048BFC3 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				9B4B013B2D94685F0048BFC3 /* book-library-iosUITests */,
+				9B4B013B2D94685F0048BFC3 /* BookLibraryUITests */,
 			);
-			name = "book-library-iosUITests";
+			name = BookLibraryUITests;
 			packageProductDependencies = (
 			);
 			productName = "book-library-iosUITests";
-			productReference = 9B4B01382D94685F0048BFC3 /* book-library-iosUITests.xctest */;
+			productReference = 9B4B01382D94685F0048BFC3 /* BookLibraryUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -200,9 +200,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9B4B011A2D94685D0048BFC3 /* book-library-ios */,
-				9B4B012D2D94685F0048BFC3 /* book-library-iosTests */,
-				9B4B01372D94685F0048BFC3 /* book-library-iosUITests */,
+				9B4B011A2D94685D0048BFC3 /* BookLibrary */,
+				9B4B012D2D94685F0048BFC3 /* BookLibraryTests */,
+				9B4B01372D94685F0048BFC3 /* BookLibraryUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -258,12 +258,12 @@
 /* Begin PBXTargetDependency section */
 		9B4B01302D94685F0048BFC3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 9B4B011A2D94685D0048BFC3 /* book-library-ios */;
+			target = 9B4B011A2D94685D0048BFC3 /* BookLibrary */;
 			targetProxy = 9B4B012F2D94685F0048BFC3 /* PBXContainerItemProxy */;
 		};
 		9B4B013A2D94685F0048BFC3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 9B4B011A2D94685D0048BFC3 /* book-library-ios */;
+			target = 9B4B011A2D94685D0048BFC3 /* BookLibrary */;
 			targetProxy = 9B4B01392D94685F0048BFC3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -321,6 +321,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -376,6 +377,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -389,10 +391,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "book-library-ios/book_library_ios.entitlements";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"book-library-ios/Preview Content\"";
-				DEVELOPMENT_TEAM = 8UNBR6Z54R;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -406,13 +408,14 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.naren.booklibrary.book-library-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = com.naren.booklibrary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -428,10 +431,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "book-library-ios/book_library_ios.entitlements";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"book-library-ios/Preview Content\"";
-				DEVELOPMENT_TEAM = 8UNBR6Z54R;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -445,13 +448,14 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.naren.booklibrary.book-library-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = com.naren.booklibrary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -465,15 +469,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8UNBR6Z54R;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MACOSX_DEPLOYMENT_TARGET = 15.1;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.naren.booklibrary.book-library-iosTests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.naren.booklibraryTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -488,15 +493,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8UNBR6Z54R;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MACOSX_DEPLOYMENT_TARGET = 15.1;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.naren.booklibrary.book-library-iosTests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.naren.booklibraryTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -510,15 +516,16 @@
 		9B4B01492D94685F0048BFC3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8UNBR6Z54R;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MACOSX_DEPLOYMENT_TARGET = 15.1;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.naren.booklibrary.book-library-iosUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.naren.booklibraryUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -532,15 +539,16 @@
 		9B4B014A2D94685F0048BFC3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8UNBR6Z54R;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MACOSX_DEPLOYMENT_TARGET = 15.1;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.naren.booklibrary.book-library-iosUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.naren.booklibraryUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -563,7 +571,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9B4B01422D94685F0048BFC3 /* Build configuration list for PBXNativeTarget "book-library-ios" */ = {
+		9B4B01422D94685F0048BFC3 /* Build configuration list for PBXNativeTarget "BookLibrary" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9B4B01432D94685F0048BFC3 /* Debug */,
@@ -572,7 +580,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9B4B01452D94685F0048BFC3 /* Build configuration list for PBXNativeTarget "book-library-iosTests" */ = {
+		9B4B01452D94685F0048BFC3 /* Build configuration list for PBXNativeTarget "BookLibraryTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9B4B01462D94685F0048BFC3 /* Debug */,
@@ -581,7 +589,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9B4B01482D94685F0048BFC3 /* Build configuration list for PBXNativeTarget "book-library-iosUITests" */ = {
+		9B4B01482D94685F0048BFC3 /* Build configuration list for PBXNativeTarget "BookLibraryUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9B4B01492D94685F0048BFC3 /* Debug */,

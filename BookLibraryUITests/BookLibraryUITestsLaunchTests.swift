@@ -1,13 +1,13 @@
 //
-//  book_library_iosUITestsLaunchTests.swift
-//  book-library-iosUITests
+//  BookLibraryUITestsLaunchTests.swift
+//  BookLibraryUITestsLaunchTests
 //
 //  Created by Naren on 26/03/25.
 //
 
 import XCTest
 
-final class book_library_iosUITestsLaunchTests: XCTestCase {
+final class BookLibraryUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
