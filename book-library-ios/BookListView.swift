@@ -12,9 +12,11 @@ struct BookListView: View {
   @Environment(\.modelContext) var context
   @Query(sort: \Book.title) var books: [Book]
   
+  @State var searchText = ""
+  
   var body: some View {
     NavigationStack {
-      List(books) { book in
+      List(searchResults) { book in
         NavigationLink(destination: BookDetailView(book: book)) {
           HStack {
             Text("\(book.title) - \(book.authorName)")
@@ -35,8 +37,17 @@ struct BookListView: View {
         }
       }
     }
+    .searchable(text: $searchText)
     .onAppear {
       migrateData()
+    }
+  }
+  
+  var searchResults: [Book] {
+    if searchText.isEmpty {
+      return books
+    } else {
+      return books.filter({$0.title.localizedCaseInsensitiveContains(searchText)})
     }
   }
   
