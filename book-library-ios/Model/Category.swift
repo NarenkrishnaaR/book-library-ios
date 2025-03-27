@@ -10,13 +10,20 @@ import SwiftData
 
 @Model
 final class Category {
-  var name: String
+  @Attribute(.unique) var name: String
   
-  @Relationship(deleteRule: .cascade, minimumModelCount: 1, maximumModelCount: 10, inverse: \Book.category)
+  @Relationship(deleteRule: .cascade, minimumModelCount: 1, maximumModelCount: 10,
+                inverse: \Book.category)
   var books: [Book] = []
   
   init(name: String, books: [Book]) {
     self.name = name
     self.books = books
   }
+}
+
+enum ReadingStatus: String, Codable, CaseIterable {
+  case currentRead = "Currently Reading"
+  case toRead = "To Read"
+  case completed = "Completed"
 }

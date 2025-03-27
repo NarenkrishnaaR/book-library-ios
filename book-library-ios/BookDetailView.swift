@@ -16,6 +16,7 @@ struct BookDetailView: View {
       Text("Author Name - \(book.authorName)")
       Text("Publication Year - \(book.publishedYear ?? "")")
       Text("Genre - \(book.genre)")
+      Text("Category - \(book.category?.name ?? "")")
     }
   }
 }

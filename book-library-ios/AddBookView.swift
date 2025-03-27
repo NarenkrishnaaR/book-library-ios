@@ -6,16 +6,18 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct AddBookView: View {
   @Environment(\.dismiss) private var dismiss
-  @Environment(\.modelContext) private var modelContext
+  @Environment(\.modelContext) private var context
   
   @State private var bookTitle = ""
   @State private var authorName = ""
   @State private var selectedYear = Calendar.current.component(.year, from: Date())
   @State private var selectedGenre: Book.BookGenre = .fiction
   @State private var isFavourite: Bool = false
+  @State private var readingStatus: ReadingStatus = .currentRead
   
   var body: some View {
     NavigationStack {
@@ -48,6 +50,12 @@ struct AddBookView: View {
           Text(String(year)).tag(year)
         }
       }
+      Picker("Status", selection: $readingStatus) {
+        ForEach(ReadingStatus.allCases, id: \.self) { status in
+          Text(status.rawValue).tag(status)
+        }
+      }
+      .pickerStyle(.menu)
       Toggle("Favourite", isOn: $isFavourite)
     }
   }
@@ -58,7 +66,22 @@ struct AddBookView: View {
                        genre:  selectedGenre,
                        isFavourite: isFavourite,
                        publishedYear: String(selectedYear))
-    modelContext.insert(newBook)
+    let fetchDescriptor = FetchDescriptor<Category>(predicate: #Predicate { $0.name == readingStatus.rawValue })
+    do {
+      if let existingCategory = try context.fetch(fetchDescriptor).first, existingCategory.name == readingStatus.rawValue {
+        existingCategory.books.append(newBook)
+        newBook.category = existingCategory
+      } else {
+        let category = Category(name: readingStatus.rawValue,
+                                books: [newBook])
+        category.books.append(newBook)
+        newBook.category = category
+        context.insert(category)
+      }
+    } catch {
+      print("Failed to fetch categories: \(error)")
+    }
+    context.insert(newBook)
   }
 }
 
