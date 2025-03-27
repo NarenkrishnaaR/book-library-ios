@@ -14,7 +14,7 @@ struct BookLibrary: App {
     let schema = Schema([
       Book.self, Category.self
     ])
-    let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+    let modelConfiguration = ModelConfiguration(schema: schema)
     
     do {
       return try ModelContainer(for: schema, configurations: [modelConfiguration])
