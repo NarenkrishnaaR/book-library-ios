@@ -25,7 +25,7 @@ struct BookLibrary: App {
   
   var body: some Scene {
     WindowGroup {
-      ContentView()
+      BookListView()
     }
     .modelContainer(sharedModelContainer)
   }

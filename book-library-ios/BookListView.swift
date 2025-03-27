@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  BookListView.swift
 //  book-library-ios
 //
 //  Created by Naren on 26/03/25.
@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct ContentView: View {
+struct BookListView: View {
   @Environment(\.modelContext) var context
   @Query(sort: \Book.title) var books: [Book]
   
@@ -49,5 +49,5 @@ struct ContentView: View {
 }
 
 #Preview {
-  ContentView()
+  BookListView()
 }
