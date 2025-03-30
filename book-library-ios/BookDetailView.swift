@@ -9,6 +9,7 @@ import SwiftUI
 
 struct BookDetailView: View {
   let book: Book
+  @State private var isExpanded = false
   
   var body: some View {
     Form {
@@ -17,7 +18,21 @@ struct BookDetailView: View {
       Text("Publication Year - \(book.publishedYear ?? "")")
       Text("Genre - \(book.genre)")
       Text("Category - \(book.category?.name ?? "")")
+      Button(action: {
+        isExpanded.toggle()
+      }) {
+        Text(isExpanded ? "Show Less" : "Show More")
+          .frame(maxWidth: .infinity)
+          .padding()
+          .cornerRadius(8)
+      }
+      
+      if isExpanded {
+        Text("This is additional information about the book.")
+          .foregroundColor(.gray)
+      }
     }
+    .animation(.default, value: isExpanded)
   }
 }
 

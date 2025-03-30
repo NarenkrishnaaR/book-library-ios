@@ -17,8 +17,8 @@ final class Book {
   var publicationYear: Int32
   var publishedYear: String?
   var genre: BookGenre
-  var isFavourite: Bool = false
-  @Transient var summary: String?
+  var isFavourite = false
+  @Transient var isExpanded = false
   @Relationship var category: Category?
   
   init(title: String, authorName: String, publicationYear: Int32,
@@ -30,7 +30,6 @@ final class Book {
     self.publicationYear = publicationYear
     self.genre = genre
     self.isFavourite = isFavourite
-    self.summary = summary
     self.category = category
     self.publishedYear = publishedYear
   }
