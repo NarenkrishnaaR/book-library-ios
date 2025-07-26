@@ -11,7 +11,7 @@ import SwiftData
 @Model class Book {
   #Index([\Book.title])
   
-  @Attribute(.unique) var title: String
+  @Attribute(.unique) var title: String!
   var authorName: String
   var publicationYear: Int32
   var publishedYear: String?
