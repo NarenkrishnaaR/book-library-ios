@@ -20,7 +20,7 @@ struct BookListView: View {
       List(searchResults) { book in
         NavigationLink(destination: BookDetailView(book: book)) {
           HStack {
-            Text("\(book.title) - \(book.authorName)")
+            Text("\(book.title!) - \(book.authorName)")
             Spacer()
             if book.isFavourite {
               Image(systemName: "star.fill")
@@ -40,7 +40,9 @@ struct BookListView: View {
     }
     .searchable(text: $searchText)
     .onAppear {
-      migrateData()
+      DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        m1()
+      }
     }
   }
   
@@ -52,7 +54,7 @@ struct BookListView: View {
     }
   }
   
-  private func migrateData() {
+  private func m1() {
     for book in books where book.publishedYear == nil {
       book.publishedYear = "\(book.publicationYear)" // Convert Int32 to String
     }
