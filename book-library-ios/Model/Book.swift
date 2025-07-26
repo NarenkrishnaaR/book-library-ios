@@ -8,8 +8,7 @@
 import Foundation
 import SwiftData
 
-@Model
-final class Book {
+@Model class Book {
   #Index([\Book.title])
   
   @Attribute(.unique) var title: String

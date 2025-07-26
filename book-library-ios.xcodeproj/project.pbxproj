@@ -30,11 +30,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		9B4B011D2D94685D0048BFC3 /* book-library-ios */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "book-library-ios";
-			sourceTree = "<group>";
-		};
 		9B4B01312D94685F0048BFC3 /* BookLibraryTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = BookLibraryTests;
@@ -43,6 +38,11 @@
 		9B4B013B2D94685F0048BFC3 /* BookLibraryUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = BookLibraryUITests;
+			sourceTree = "<group>";
+		};
+		9BFD2D222E34B4D3001E2BD9 /* book-library-ios */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "book-library-ios";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -75,7 +75,7 @@
 		9B4B01122D94685D0048BFC3 = {
 			isa = PBXGroup;
 			children = (
-				9B4B011D2D94685D0048BFC3 /* book-library-ios */,
+				9BFD2D222E34B4D3001E2BD9 /* book-library-ios */,
 				9B4B01312D94685F0048BFC3 /* BookLibraryTests */,
 				9B4B013B2D94685F0048BFC3 /* BookLibraryUITests */,
 				9B4B011C2D94685D0048BFC3 /* Products */,
@@ -108,7 +108,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				9B4B011D2D94685D0048BFC3 /* book-library-ios */,
+				9BFD2D222E34B4D3001E2BD9 /* book-library-ios */,
 			);
 			name = BookLibrary;
 			packageProductDependencies = (

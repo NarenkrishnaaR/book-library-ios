@@ -10,6 +10,7 @@ import SwiftData
 
 struct BookListView: View {
   @Environment(\.modelContext) var context
+  
   @Query(sort: \Book.title) var books: [Book]
   
   @State var searchText = ""

@@ -14,7 +14,11 @@ struct BookLibrary: App {
     let schema = Schema([
       Book.self, Category.self
     ])
-    let modelConfiguration = ModelConfiguration(schema: schema)
+    // Define custom database URL
+    let dbURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)
+      .first?
+      .appendingPathComponent("BookLib.sqlite")
+    let modelConfiguration = ModelConfiguration(schema: schema, url: dbURL!)
     
     do {
       return try ModelContainer(for: schema, configurations: [modelConfiguration])
