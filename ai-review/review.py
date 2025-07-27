@@ -59,6 +59,6 @@ payload = {"body": f"🧠 **AI Code Review Suggestions**:\n\n{feedback}"}
 r = requests.post(comment_url, headers=headers, json=payload)
 
 if r.status_code == 201:
-    print("Posted review to PR.")
+    print("✅ Posted review to PR.")
 else:
-    print("Failed to post comment:", r.text)
+    print(f"❌ Failed to post comment: {r.status_code} - {r.text}")
