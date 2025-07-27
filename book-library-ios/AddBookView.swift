@@ -26,8 +26,10 @@ struct AddBookView: View {
         .toolbar {
           ToolbarItem(placement: .topBarTrailing) {
             Button("Save") {
-              saveData()
-              dismiss()
+              DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                saveData()
+                dismiss()
+              }
             }
           }
         }
@@ -69,7 +71,6 @@ struct AddBookView: View {
     let fetchDescriptor = FetchDescriptor<Category>(predicate: #Predicate { $0.name == readingStatus.rawValue })
     do {
       if let existingCategory = try context.fetch(fetchDescriptor).first, existingCategory.name == readingStatus.rawValue {
-        existingCategory.books.append(newBook)
         newBook.category = existingCategory
       } else {
         let category = Category(name: readingStatus.rawValue,
