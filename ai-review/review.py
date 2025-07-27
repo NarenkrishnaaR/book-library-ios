@@ -102,7 +102,14 @@ response = client.chat.completions.create(
     ],
 )
 
-review = response.choices[0].message.content
+review = response.choices[0].message.content.strip()
+# 🔍 Remove Markdown formatting if GPT returns code block
+if review.startswith("```json"):
+    review = review.removeprefix("```json").strip()
+if review.startswith("```"):  # fallback in case only triple-backtick is used
+    review = review.removeprefix("```").strip()
+if review.endswith("```"):
+    review = review.removesuffix("```").strip()
 
 try:
     review_data = json.loads(review)
