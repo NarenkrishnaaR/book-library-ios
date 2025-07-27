@@ -16,7 +16,7 @@ headers = {
 }
 
 # Get PR diff
-diff_url = f"https://api.github.com/repos/{repo}/pulls/{pr_number}"
+diff_url = f"https://api.github.com/repos/{repo}/pulls/{pr_number}/files"
 print(f"➡️  Fetching PR diff from: {diff_url}")
 
 response = requests.get(diff_url, headers=headers)
