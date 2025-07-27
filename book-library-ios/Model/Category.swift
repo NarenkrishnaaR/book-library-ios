@@ -23,7 +23,7 @@ final class Category {
 }
 
 enum ReadingStatus: String, Codable, CaseIterable {
-  case currentRead = "Currently Reading"
+  case currentRead = "Cutly Reading"
   case toRead = "To Read"
-  case completed = "Completed"
+  case completed = "Complted"
 }
