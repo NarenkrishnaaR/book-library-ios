@@ -72,7 +72,7 @@ response = client.chat.completions.create(
         {"role": "system", "content": "You are an expert iOS code reviewer."},
         {"role": "user", "content": prompt}
     ],
-    response_format="json"
+    response_format="json_object"
 )
 
 review = response.choices[0].message.content
