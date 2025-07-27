@@ -127,6 +127,16 @@ pr_info = requests.get(
 ).json()
 commit_sha = pr_info.get("head", {}).get("sha")
 author = pr_info.get("user", {}).get("login", "author")
+# ✅ Check if summary already exists
+existing_comments = requests.get(comment_url, headers=headers).json()
+ai_summary_already_posted = any(
+    "AI Code Review Summary" in c.get("body", "") and c.get("user", {}).get("login") == "github-actions[bot]"
+    for c in existing_comments
+)
+
+if ai_summary_already_posted:
+    print("🟡 AI summary already exists, skipping...")
+else:
 payload = {
     "body": f"""**AI Code Review Summary**  
 Hi @{author}, here's an automated review of your PR:
