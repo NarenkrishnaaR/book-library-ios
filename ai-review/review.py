@@ -74,7 +74,7 @@ response = client.chat.completions.create(
     ]
 )
 
-feedback = response.choices[0].message["content"]
+feedback = response.choices[0].message.content
 print("✅ Review content generated.")
 
 # Post feedback to PR as a comment
