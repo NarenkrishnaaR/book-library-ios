@@ -88,15 +88,17 @@ summary = review_data.get("summary", "")
 comment_url = f"https://api.github.com/repos/{repo}/issues/{pr_number}/comments"
 author = pr_info.get("user", {}).get("login", "author")
 payload = {
-    "body": f"""🧠 **AI Code Review Summary**  
+    "body": f"""**AI Code Review Summary**  
 Hi @{author}, here's an automated review of your PR:
 
 ---
 
+### 📝 Summary
+
 {summary}
 
 ---
-_Note: This is an AI-generated review. Please verify suggestions before applying.🤖"""
+> _Note: This is an AI-generated review. Please verify suggestions before applying._🤖"""
 }
 summary_post = requests.post(comment_url, headers=headers, json=payload)
 if summary_post.status_code == 201:
