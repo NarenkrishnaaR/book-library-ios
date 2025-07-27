@@ -196,5 +196,5 @@ if review_response.status_code == 200:
     print("✅ Posted review with inline comments.")
 else:
     print(
-        f"❌ Failed to comment on {file_path}:{line_number} - {r.status_code} - {r.text}"
+        f"❌ Failed to comment on {file_path}:{line_number} - {review_response.status_code} - {review_response.text}"
     )
