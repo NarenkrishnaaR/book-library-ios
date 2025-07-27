@@ -109,7 +109,7 @@ Hi @{author}, here's an automated review of your PR:
 {summary}
 
 ---
-> _Note: This is an AI-generated review. Please verify suggestions before applying._🤖"""
+> **Note:** This is an AI-generated review. Please verify suggestions before applying.🤖"""
 }
 summary_post = requests.post(comment_url, headers=headers, json=payload)
 if summary_post.status_code == 201:
