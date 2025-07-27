@@ -130,15 +130,16 @@ author = pr_info.get("user", {}).get("login", "author")
 # ✅ Check if summary already exists
 existing_comments = requests.get(comment_url, headers=headers).json()
 ai_summary_already_posted = any(
-    "AI Code Review Summary" in c.get("body", "") and c.get("user", {}).get("login") == "github-actions[bot]"
+    "AI Code Review Summary" in c.get("body", "")
+    and c.get("user", {}).get("login") == "github-actions[bot]"
     for c in existing_comments
 )
 
 if ai_summary_already_posted:
     print("🟡 AI summary already exists, skipping...")
 else:
-payload = {
-    "body": f"""**AI Code Review Summary**  
+    payload = {
+        "body": f"""**AI Code Review Summary**  
 Hi @{author}, here's an automated review of your PR:
 
 ---
@@ -149,7 +150,7 @@ Hi @{author}, here's an automated review of your PR:
 
 ---
 > **Note:** This is an AI-generated review. Please verify suggestions before applying.🤖"""
-}
+    }
 summary_post = requests.post(comment_url, headers=headers, json=payload)
 if summary_post.status_code == 201:
     print("✅ Posted summary.")
@@ -167,7 +168,7 @@ for c in review_data.get("comments", []):
     line_number = c["line"]
     comment_text = c["comment"]
     suggestion = c.get("suggestion", "").strip()
-    
+
 markdown_comment = f"""**AI Suggestion**  
 **Line {line_number}**:  
 {comment_text}
@@ -177,11 +178,13 @@ markdown_comment = f"""**AI Suggestion**
 {c.get("suggestion", "// <your_code_suggestion_here>")}
 ```
 """
-review_comments.append({
+review_comments.append(
+    {
         "path": file_path,
         "position": 1,  # TEMP placeholder, GitHub requires a valid position
-        "body": markdown_comment
-    })
+        "body": markdown_comment,
+    }
+)
 
 # Filter only valid positions (NOTE: better approach is to map line to position from patch)
 if not review_comments:
@@ -193,13 +196,13 @@ review_payload = {
     "commit_id": commit_sha,
     "body": "AI Code Review Suggestions",
     "event": "COMMENT",
-    "comments": review_comments
+    "comments": review_comments,
 }
 
 review_response = requests.post(
     f"https://api.github.com/repos/{repo}/pulls/{pr_number}/reviews",
     headers=headers,
-    json=review_payload
+    json=review_payload,
 )
 
 if review_response.status_code == 200:
