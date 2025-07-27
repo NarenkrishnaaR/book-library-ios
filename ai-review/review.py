@@ -1,6 +1,8 @@
 import os
 import openai
 import requests
+from openai.types.chat import ChatCompletionMessage
+from openai.types.chat.completion_create_params import ResponseFormat
 
 client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 repo = os.getenv("REPO")
@@ -72,7 +74,7 @@ response = client.chat.completions.create(
         {"role": "system", "content": "You are an expert iOS code reviewer."},
         {"role": "user", "content": prompt}
     ],
-    response_format="json_object"
+    response_format=ResponseFormat.json_object
 )
 
 review = response.choices[0].message.content
