@@ -166,23 +166,33 @@ markdown_comment = f"""**AI Suggestion**
 {c.get("suggestion", "// <your_code_suggestion_here>")}
 ```
 """
+review_comments.append({
+        "path": file_path,
+        "position": 1,  # TEMP placeholder, GitHub requires a valid position
+        "body": markdown_comment
+    })
 
-payload = {
-    "body": markdown_comment,
+# Filter only valid positions (NOTE: better approach is to map line to position from patch)
+if not review_comments:
+    print("⚠️ No valid comments to post.")
+    exit(0)
+
+# Create review
+review_payload = {
     "commit_id": commit_sha,
-    "path": file_path,
-    "side": "RIGHT",
-    "line": line_number,
+    "body": "AI Code Review Suggestions",
+    "event": "COMMENT",
+    "comments": review_comments
 }
 
-r = requests.post(
-    f"https://api.github.com/repos/{repo}/pulls/{pr_number}/comments",
+review_response = requests.post(
+    f"https://api.github.com/repos/{repo}/pulls/{pr_number}/reviews",
     headers=headers,
-    json=payload,
+    json=review_payload
 )
 
-if r.status_code == 201:
-    print(f"💬 Commented on {file_path}:{line_number}")
+if r.status_code == 200:
+    print("✅ Posted review with inline comments.")
 else:
     print(
         f"❌ Failed to comment on {file_path}:{line_number} - {r.status_code} - {r.text}"
