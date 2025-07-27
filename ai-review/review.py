@@ -27,8 +27,7 @@ if response.status_code != 200:
     exit(1)
 
 try:
-    json_data = response.json()
-    files = json_data.get("files", [])
+    files = response.json()
     if not files:
         print("⚠️ No files returned in the PR diff.")
     else:
