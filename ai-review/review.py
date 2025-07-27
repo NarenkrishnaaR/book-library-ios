@@ -86,7 +86,18 @@ except Exception as e:
 # Step 1: Post summary
 summary = review_data.get("summary", "")
 comment_url = f"https://api.github.com/repos/{repo}/issues/{pr_number}/comments"
-payload = {"body": f"🧠 **AI Code Review Summary**:\n\n{summary}"}
+author = pr_info.get("user", {}).get("login", "author")
+payload = {
+    "body": f"""🧠 **AI Code Review Summary**  
+Hi @{author}, here's an automated review of your PR:
+
+---
+
+{summary}
+
+---
+_Note: This is an AI-generated review. Please verify suggestions before applying.🤖"""
+}
 summary_post = requests.post(comment_url, headers=headers, json=payload)
 if summary_post.status_code == 201:
     print("✅ Posted summary.")
