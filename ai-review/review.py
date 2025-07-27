@@ -151,11 +151,12 @@ Hi @{author}, here's an automated review of your PR:
 ---
 > **Note:** This is an AI-generated review. Please verify suggestions before applying.🤖"""
     }
-summary_post = requests.post(comment_url, headers=headers, json=payload)
-if summary_post.status_code == 201:
-    print("✅ Posted summary.")
-else:
-    print("❌ Failed to post summary:", summary_post.text)
+
+    summary_post = requests.post(comment_url, headers=headers, json=payload)
+    if summary_post.status_code == 201:
+        print("✅ Posted summary.")
+    else:
+        print("❌ Failed to post summary:", summary_post.text)
 
 if not commit_sha:
     print("❌ Could not get commit SHA.")
