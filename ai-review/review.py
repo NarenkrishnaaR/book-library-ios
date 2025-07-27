@@ -46,28 +46,36 @@ if not diffs:
     exit(0)
 
 # Prompt GPT to return structured review
-prompt = f"""You're an expert iOS code reviewer. Provide feedback in the following JSON format:
+prompt = f"""You're an expert iOS code reviewer. Analyze the following Swift code diff and return feedback in this **JSON format**:
 
 {{
-  "summary": "<brief summary>",
+  "summary": "<brief summary of overall issues and improvements>",
   "comments": [
     {{
       "file": "<filename>",
       "line": <line_number>,
-      "comment": "<inline comment>"
-    }},
-    ...
+      "comment": "<explanation of why this line needs improvement>",
+      "suggestion": "<Swift code suggestion to resolve the issue>"
+    }}
   ]
 }}
 
-Analyze these Swift code changes:
+🔍 Review focus areas:
+- Avoid force unwrapping (`!`) – use optional binding (`if let`, `guard let`) or `??`
+- Apply SwiftUI best practices: views should not contain business logic
+- Follow MVVM: move formatting/logic to ViewModel
+- Keep SwiftUI views clean and declarative
+- Maintain safe, readable, and idiomatic Swift code
+
+Return only the JSON object. Avoid explanations outside the JSON.
+
+Here is the code diff to review:
 {diffs}
 """
-
 print("🧠 Sending diff to GPT-4...")
 
 response = client.chat.completions.create(
-    model="gpt-4",
+    model="gpt-4o-mini",
     messages=[
         {"role": "system", "content": "You are an expert iOS code reviewer."},
         {"role": "user", "content": prompt}
@@ -86,16 +94,29 @@ except Exception as e:
 # Step 1: Post summary
 summary = review_data.get("summary", "")
 comment_url = f"https://api.github.com/repos/{repo}/issues/{pr_number}/comments"
-payload = {"body": f"🧠 **AI Code Review Summary**:\n\n{summary}"}
+author = pr_info.get("user", {}).get("login", "author")
+# Step 2: Get latest commit SHA
+pr_info = requests.get(f"https://api.github.com/repos/{repo}/pulls/{pr_number}", headers=headers).json()
+commit_sha = pr_info.get("head", {}).get("sha")
+payload = {
+    "body": f"""**AI Code Review Summary**  
+Hi @{author}, here's an automated review of your PR:
+
+---
+
+### 📝 Summary
+
+{summary}
+
+---
+> _Note: This is an AI-generated review. Please verify suggestions before applying._🤖"""
+}
 summary_post = requests.post(comment_url, headers=headers, json=payload)
 if summary_post.status_code == 201:
     print("✅ Posted summary.")
 else:
     print("❌ Failed to post summary:", summary_post.text)
 
-# Step 2: Get latest commit SHA
-pr_info = requests.get(f"https://api.github.com/repos/{repo}/pulls/{pr_number}", headers=headers).json()
-commit_sha = pr_info.get("head", {}).get("sha")
 if not commit_sha:
     print("❌ Could not get commit SHA.")
     exit(1)
@@ -105,9 +126,18 @@ for c in review_data.get("comments", []):
     file_path = c["file"]
     line_number = c["line"]
     comment_text = c["comment"]
+    suggestion = c.get("suggestion", "").strip()
+markdown_comment = f"""**AI Suggestion**  
+**Line {line_number}**:  
+{comment_text}
+
+```swift
+// Suggested Change:
+{c.get("suggestion", "// <your_code_suggestion_here>")}
+```"""
 
     payload = {
-        "body": comment_text,
+        "body": markdown_comment,
         "commit_id": commit_sha,
         "path": file_path,
         "side": "RIGHT",
