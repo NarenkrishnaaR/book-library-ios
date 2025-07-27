@@ -2,7 +2,7 @@ import os
 import openai
 import requests
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 repo = os.getenv("REPO")
 pr_number = os.getenv("PR_NUMBER")
 token = os.getenv("GITHUB_TOKEN")
@@ -66,7 +66,7 @@ prompt = f"""You're an iOS expert. Focus on:
 
 print("🧠 Sending diff to GPT-4...")
 
-review = openai.ChatCompletion.create(
+response = client.chat.completions.create(
     model="gpt-4",
     messages=[
         {"role": "system", "content": "You are an expert iOS code reviewer."},
@@ -74,7 +74,7 @@ review = openai.ChatCompletion.create(
     ]
 )
 
-feedback = review.choices[0].message["content"]
+feedback = response.choices[0].message["content"]
 print("✅ Review content generated.")
 
 # Post feedback to PR as a comment
