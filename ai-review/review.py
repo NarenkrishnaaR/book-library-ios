@@ -151,6 +151,7 @@ if not commit_sha:
     exit(1)
 
 # Step 3: Post inline comments
+review_comments = []
 for c in review_data.get("comments", []):
     file_path = c["file"]
     line_number = c["line"]
