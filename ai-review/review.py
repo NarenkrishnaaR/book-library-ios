@@ -1,6 +1,7 @@
 import os
 from openai import OpenAI
 import requests
+import json
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 repo = os.getenv("REPO")
@@ -102,7 +103,6 @@ response = client.chat.completions.create(
 )
 
 review = response.choices[0].message.content
-import json
 
 try:
     review_data = json.loads(review)
