@@ -192,7 +192,7 @@ review_response = requests.post(
     json=review_payload
 )
 
-if r.status_code == 200:
+if review_response.status_code == 200:
     print("✅ Posted review with inline comments.")
 else:
     print(
