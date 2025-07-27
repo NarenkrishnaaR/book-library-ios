@@ -3,6 +3,9 @@ name: AI Code Review Bot
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+    
+permissions:
+  pull-requests: write
 
 jobs:
   ai_review:
