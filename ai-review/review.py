@@ -149,6 +149,10 @@ for c in review_data.get("comments", []):
     line_number = c["line"]
     comment_text = c["comment"]
     suggestion = c.get("suggestion", "").strip()
+print("👉 File:", file_path)
+print("👉 Line in diff:", line_number)
+print("👉 Commit ID:", commit_sha)
+
 markdown_comment = f"""**AI Suggestion**  
 **Line {line_number}**:  
 {comment_text}
