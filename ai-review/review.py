@@ -61,11 +61,30 @@ prompt = f"""You're an expert iOS code reviewer. Analyze the following Swift cod
 }}
 
 🔍 Review focus areas:
-- Avoid force unwrapping (`!`) – use optional binding (`if let`, `guard let`) or `??`
-- Apply SwiftUI best practices: views should not contain business logic
-- Follow MVVM: move formatting/logic to ViewModel
-- Keep SwiftUI views clean and declarative
-- Maintain safe, readable, and idiomatic Swift code
+- 🚫 Avoid force unwrapping (`!`) — instead, use optional binding (`if let`, `guard let`) or nil coalescing (`??`)
+- 🧱 Follow SwiftUI best practices:
+  • Views should remain declarative and free of business logic
+  • Avoid embedding conditional logic or side effects in the view body
+  • Use computed properties or ViewModels to handle state and formatting
+- 🧹 Apply MVVM principles — move formatting, business logic, and data transformations to ViewModel
+- 🧼 Maintain clean, readable, and idiomatic Swift code
+- 🧠 Follow Swift naming conventions:
+  • Descriptive, camelCase for variables and functions
+  • PascalCase for types (structs, classes, enums)
+  • Avoid abbreviations unless well-known
+- 📦 Use access control wisely (`private`, `internal`, `public`) to limit scope and improve encapsulation
+- ♻️ Reuse UI components and modifiers where possible to reduce duplication
+- 🧪 Ensure testability — logic should be easy to write unit tests for
+- 🐛 Detect typos in:
+  • Enum case names and raw values
+  • String literals (especially user-facing)
+  • Function/method names
+  • Class, struct, protocol names
+  • Variable/constant names
+  • Documentation and inline comments
+- ⚠️ Warn about unused code (e.g., variables, imports, functions)
+- 📉 Highlight performance issues (e.g., complex views inside `body`, redundant modifiers)
+- ✅ Ensure consistent formatting and indentation
 
 Return only the JSON object. Avoid explanations outside the JSON.
 
