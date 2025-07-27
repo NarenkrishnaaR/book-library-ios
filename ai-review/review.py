@@ -94,7 +94,7 @@ Here is the code diff to review:
 print("🧠 Sending diff to GPT-4...")
 
 response = client.chat.completions.create(
-    model="gpt-4o-mini",
+    model="gpt-4o",
     messages=[
         {"role": "system", "content": "You are an expert iOS code reviewer."},
         {"role": "user", "content": prompt},
@@ -149,10 +149,7 @@ for c in review_data.get("comments", []):
     line_number = c["line"]
     comment_text = c["comment"]
     suggestion = c.get("suggestion", "").strip()
-print("👉 File:", file_path)
-print("👉 Line in diff:", line_number)
-print("👉 Commit ID:", commit_sha)
-
+    
 markdown_comment = f"""**AI Suggestion**  
 **Line {line_number}**:  
 {comment_text}
