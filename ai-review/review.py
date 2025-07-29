@@ -18,48 +18,75 @@ headers = {
     "Accept": "application/vnd.github.v3+json",
 }
 
+
 def get_line_numbers_from_patch(patch: str) -> List[int]:
     """
-    Extract the actual line numbers of added/modified lines from a patch.
-    Returns a list of line numbers that can be commented on.
+    Extract line numbers where comments can be placed.
+    Includes added lines and context lines around changes.
     """
     line_numbers = []
     current_line = 0
-    
-    for line in patch.split('\n'):
-        if line.startswith('@@'):
+    in_change_context = False
+    context_lines = []
+
+    lines = patch.split("\n")
+    for i, line in enumerate(lines):
+        if line.startswith("@@"):
             # Parse hunk header like @@ -1,4 +1,6 @@
-            match = re.match(r'@@ -\d+(?:,\d+)? \+(\d+)(?:,\d+)? @@', line)
+            match = re.match(r"@@ -\d+(?:,\d+)? \+(\d+)(?:,\d+)? @@", line)
             if match:
-                current_line = int(match.group(1)) - 1  # Start one before the first line
-        elif line.startswith('+'):
-            # Added line - this is where we can comment
+                current_line = int(match.group(1)) - 1
+            in_change_context = True
+            context_lines = []
+        elif line.startswith("+"):
+            # Added line
             current_line += 1
             line_numbers.append(current_line)
-        elif line.startswith(' '):
+            in_change_context = True
+        elif line.startswith("-"):
+            # Removed line - add context lines around it for commenting
+            if in_change_context:
+                # Add previous context lines
+                line_numbers.extend(context_lines)
+                context_lines = []
+                # Add next context line if available
+                next_line_idx = i + 1
+                if next_line_idx < len(lines) and lines[next_line_idx].startswith(" "):
+                    current_line += (
+                        1  # This will be incremented below for the context line
+                    )
+        elif line.startswith(" "):
             # Context line
             current_line += 1
-        # Skip removed lines (they don't increment current_line)
-    
-    return line_numbers
+            if in_change_context:
+                context_lines.append(current_line)
+                # Keep only last 2 context lines to avoid too many comments
+                context_lines = context_lines[-2:]
 
-def create_single_comment(file_path: str, line_number: int, comment_text: str,
-                         commit_sha: str, suggestion: str = "", severity: str = "minor") -> bool:
+    # Remove duplicates and sort
+    return sorted(list(set(line_numbers)))
+
+
+def create_single_comment(
+    file_path: str,
+    line_number: int,
+    comment_text: str,
+    commit_sha: str,
+    suggestion: str = "",
+    severity: str = "minor",
+) -> bool:
     """
     Create a single inline comment using GitHub's single comment API.
     This is simpler than the review API and uses line numbers directly.
     """
-    severity_emoji = {
-        'critical': '🚨',
-        'major': '⚠️',
-        'minor': '💡',
-        'style': '🎨'
-    }.get(severity, '💡')
-    
+    severity_emoji = {"critical": "🚨", "major": "⚠️", "minor": "💡", "style": "🎨"}.get(
+        severity, "💡"
+    )
+
     markdown_comment = f"""{severity_emoji} **{severity.title()} Issue**
 
 {comment_text}"""
-    
+
     if suggestion:
         markdown_comment += f"""
 
@@ -67,76 +94,88 @@ def create_single_comment(file_path: str, line_number: int, comment_text: str,
 ```swift
 {suggestion}
 ```"""
-    
+
     # Use the single comment API instead of review API
     comment_payload = {
         "body": markdown_comment,
         "commit_id": commit_sha,
         "path": file_path,
         "line": line_number,
-        "side": "RIGHT"  # Comment on the new version of the file
+        "side": "RIGHT",  # Comment on the new version of the file
     }
-    
+
     response = requests.post(
         f"https://api.github.com/repos/{repo}/pulls/{pr_number}/comments",
         headers=headers,
-        json=comment_payload
+        json=comment_payload,
     )
-    
+
     return response.status_code in [201, 200]
+
 
 def get_file_content(file_path: str, ref: str = None) -> Optional[str]:
     """Fetch the full content of a file from GitHub."""
     url = f"https://api.github.com/repos/{repo}/contents/{file_path}"
     if ref:
         url += f"?ref={ref}"
-    
+
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
         content_data = response.json()
-        if content_data.get('encoding') == 'base64':
+        if content_data.get("encoding") == "base64":
             import base64
-            return base64.b64decode(content_data['content']).decode('utf-8')
+
+            return base64.b64decode(content_data["content"]).decode("utf-8")
     return None
 
-def analyze_full_file_context(files: List[dict], pr_info: dict) -> Tuple[str, Dict[str, List[int]]]:
+
+def analyze_full_file_context(
+    files: List[dict], pr_info: dict
+) -> Tuple[str, Dict[str, List[int]]]:
     """
     Analyze files with full context and extract valid line numbers for comments.
     Returns the combined diff text and valid line numbers for each file.
     """
     diffs = ""
     file_line_numbers = {}
-    
+
     for file in files:
         filename = file["filename"]
-        
+
         # Skip non-Swift files and certain file types
-        if not (filename.endswith(('.swift', '.h', '.m')) or
-                any(filename.endswith(ext) for ext in ['.kt', '.java', '.py', '.js', '.ts'])):
+        if not (
+            filename.endswith((".swift", ".h", ".m"))
+            or any(
+                filename.endswith(ext) for ext in [".kt", ".java", ".py", ".js", ".ts"]
+            )
+        ):
             continue
-            
+
         patch = file.get("patch", "")
         if not patch:
             continue
-            
+
         # Get valid line numbers for this file
         file_line_numbers[filename] = get_line_numbers_from_patch(patch)
-        
+
         # Get full file content for better context
         file_content = get_file_content(filename, pr_info.get("head", {}).get("sha"))
-        
+
         # Add file info to diff with full context
         diffs += f"\n---\nFile: {filename}\n"
         diffs += f"Status: {file.get('status', 'modified')}\n"
         diffs += f"Changes: +{file.get('additions', 0)} -{file.get('deletions', 0)}\n"
         diffs += f"Valid comment lines: {file_line_numbers[filename]}\n"
         diffs += f"\nPatch:\n{patch}\n"
-        
+
         # If we have the full file content, add relevant context
-        if file_content and len(file_content.split('\n')) < 200:  # Only for smaller files
+        if (
+            file_content and len(file_content.split("\n")) < 200
+        ):  # Only for smaller files
             diffs += f"\nFull file content for context:\n{file_content}\n"
-    
+
     return diffs, file_line_numbers
+
 
 # Fetch PR files
 diff_url = f"https://api.github.com/repos/{repo}/pulls/{pr_number}/files"
@@ -226,13 +265,16 @@ try:
     response = client.chat.completions.create(
         model="gpt-4o",
         messages=[
-            {"role": "system", "content": "You are an expert code reviewer. Be thorough and examine every line of changed code. Don't skip any issues you find."},
+            {
+                "role": "system",
+                "content": "You are an expert code reviewer. Be thorough and examine every line of changed code. Don't skip any issues you find.",
+            },
             {"role": "user", "content": prompt},
         ],
         temperature=0.1,  # Lower temperature for more consistent output
         max_tokens=4000,
     )
-    
+
     review = response.choices[0].message.content.strip()
 except Exception as e:
     print(f"❌ Failed to get GPT response: {e}")
@@ -277,12 +319,14 @@ ai_summary_exists = any(
 
 if not ai_summary_exists:
     severity_counts = {}
-    for comment in review_data.get('comments', []):
-        severity = comment.get('severity', 'minor')
+    for comment in review_data.get("comments", []):
+        severity = comment.get("severity", "minor")
         severity_counts[severity] = severity_counts.get(severity, 0) + 1
-    
-    severity_summary = " | ".join([f"{sev.title()}: {count}" for sev, count in severity_counts.items()])
-    
+
+    severity_summary = " | ".join(
+        [f"{sev.title()}: {count}" for sev, count in severity_counts.items()]
+    )
+
     payload = {
         "body": f"""## 🤖 AI Code Review Summary
 
@@ -302,7 +346,9 @@ Hi @{author}! Here's an automated review of your PR:
     if summary_response.status_code == 201:
         print("✅ Posted summary comment")
     else:
-        print(f"❌ Failed to post summary: {summary_response.status_code} - {summary_response.text}")
+        print(
+            f"❌ Failed to post summary: {summary_response.status_code} - {summary_response.text}"
+        )
 
 # Step 2: Post inline comments using single comment API
 successful_comments = 0
@@ -314,13 +360,13 @@ for comment_data in review_data.get("comments", []):
     comment_text = comment_data["comment"]
     suggestion = comment_data.get("suggestion", "").strip()
     severity = comment_data.get("severity", "minor")
-    
+
     # Check if this line number is valid for commenting
     if file_path not in file_line_numbers:
         print(f"⚠️ No line numbers found for {file_path}")
         failed_comments += 1
         continue
-        
+
     valid_lines = file_line_numbers[file_path]
     if line_number not in valid_lines:
         print(f"⚠️ Line {line_number} not valid for commenting in {file_path}")
@@ -328,14 +374,18 @@ for comment_data in review_data.get("comments", []):
         # Try to find the closest valid line
         if valid_lines:
             closest_line = min(valid_lines, key=lambda x: abs(x - line_number))
-            print(f"📍 Using closest valid line {closest_line} instead of {line_number}")
+            print(
+                f"📍 Using closest valid line {closest_line} instead of {line_number}"
+            )
             line_number = closest_line
         else:
             failed_comments += 1
             continue
-    
+
     # Create the comment using single comment API
-    if create_single_comment(file_path, line_number, comment_text, commit_sha, suggestion, severity):
+    if create_single_comment(
+        file_path, line_number, comment_text, commit_sha, suggestion, severity
+    ):
         successful_comments += 1
         print(f"✅ Posted comment on {file_path}:{line_number}")
     else:
