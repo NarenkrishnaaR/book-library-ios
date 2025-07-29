@@ -244,6 +244,7 @@ prompt = f"""You're an expert code reviewer. Analyze the following code diff and
 - Use proper access control (private, internal, public)
 - Ensure thread safety for UI updates
 - Check for retain cycles in closures
+- Warn about unused code (e.g., variables, imports, functions)
 - Detect typos in:
   • Enum case names and raw values
   • String literals (especially user-facing)
