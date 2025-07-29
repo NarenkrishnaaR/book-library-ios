@@ -9,6 +9,7 @@ import SwiftUI
 
 struct BookDetailView: View {
   let book: Book
+  let title: String
   @State private var isExpanded = false
   
   var body: some View {
